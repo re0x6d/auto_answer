@@ -70,7 +70,7 @@ def get_score(payload1, html):
 
 
 def auto_answer():
-    login(base_url, '1500340227', '1500340227')
+    login(base_url, 'username', 'password')
     html_doc = get_test()
 
     # The test is finished
