@@ -1,0 +1,435 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><link href="css/test.css" rel="stylesheet" type="text/css" />
+    <script src="js/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="js/scroll.js" type="text/javascript"></script>
+    <script src="js/judge.js" type="text/javascript"></script>
+
+
+    <title>
+	资助政策网上考试系统
+</title>
+
+    <script type="text/javascript">
+        $(function () {
+
+            alert("若无法正常显示考试题目或考试剩余时间，请切换高级IE或谷歌浏览器..若考试时间不正确,请关闭浏览器后重新进入..");
+
+
+            //更新题目数量
+            $('.radio').one('focusin', function () {
+                var num = $('#remain').html();
+                var update = num - 1;
+
+                $('#remain').html(update);
+            });
+
+            $("#ImageButton1").click(function () {
+                var sum = $(".radio").size();
+
+                var flag;
+                for (var i = 0; i < sum; i++) {
+                    var vl = $("input:radio[name=\"rbtl" + i + "\"]:checked").val();
+
+                    if (vl == undefined) {
+                        // alert("您没选择" + i);
+                        flag = 1;
+                        $("#lbl" + i).html("还没有选择！");
+                    }
+                }
+                if (flag == 1) {
+                    alert("还有没选择的题目！");
+                    return false;
+                }
+
+
+            });
+        });
+    </script>
+
+
+
+    <script type="text/javascript">   
+        var timeIndex = 1800;
+        var uid = 4;
+        var url = "";
+        var s;
+        $(document).ready(function () {
+            //var regex = /dateTime=(\d+)/;
+            //var src = location.toString();
+            //if (src.match(regex)) {
+            //    timeIndex = src.match(regex)[1];
+            //}      
+                
+            setTime();                      
+            s = setInterval(setTime, 1000);
+              
+        });
+     
+        function setTime() {
+            var hour = parseInt(timeIndex / 3600);
+            var minutes = parseInt((timeIndex % 3600) / 60);
+            var seconds = parseInt(timeIndex % 60);
+            hour = hour < 10 ? "0" + hour : hour;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            //        $("#divTime").text(hour + ":" + minutes + ":" + seconds);  时间
+            if (timeIndex > 0) {
+               
+                $(".divTime").text(minutes + ":" + seconds);
+                timeIndex--;
+            }
+            else {                
+                clearInterval(s);
+                window.onbeforeunload = "";
+                $("#time_out").click();
+            }     
+        }
+            
+    </script>
+
+    <style type="text/css">
+        /*隐藏时间按钮*/
+        .hide {
+            display: none;
+        }
+
+        .lb1 {
+            font-family: "微软雅黑";
+            font-weight: bold;
+        }
+
+        .lb12 {
+            font-family: "微软雅黑";
+            font-weight: bold;
+        }
+
+        .lb3 {
+            margin: -10px 0 0 600px;
+            /*clear:both;*/
+        }
+
+        .radio {
+            font-family: "宋体";
+            font-size: 15px;
+            width: 600px;
+        }
+
+
+        tr {
+            height: 50px;
+        }
+    </style>
+
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/yanue.pop.js" type="text/javascript"></script>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #pop {
+            background: #fff;
+            width: 260px;
+            border: 1px solid #e0e0e0;
+            font-size: 12px;
+            position: fixed;
+            right: 10px;
+            bottom: 10px;
+        }
+
+        #popHead {
+            line-height: 32px;
+            background: #f6f0f3;
+            border-bottom: 1px solid #e0e0e0;
+            position: relative;
+            font-size: 12px;
+            padding: 0 0 0 10px;
+        }
+
+            #popHead h2 {
+                font-size: 14px;
+                color: #666;
+                line-height: 32px;
+                height: 32px;
+            }
+
+            #popHead #popClose {
+                position: absolute;
+                right: 10px;
+                top: 1px;
+            }
+
+            #popHead a#popClose:hover {
+                color: #f00;
+                cursor: pointer;
+            }
+
+        #popContent {
+            padding: 5px 10px;
+        }
+
+        #popTitle a {
+            line-height: 24px;
+            font-size: 14px;
+            font-family: '微软雅黑';
+            color: #333;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+            #popTitle a:hover {
+                color: #f60;
+            }
+
+        #popIntro {
+            text-indent: 24px;
+            line-height: 160%;
+            margin: 5px 0;
+            color: #666;
+        }
+
+        #popMore {
+            text-align: right;
+            border-top: 1px dotted #ccc;
+            line-height: 24px;
+            margin: 8px 0 0 0;
+        }
+
+            #popMore a {
+                color: #f60;
+            }
+
+                #popMore a:hover {
+                    color: #f00;
+                }
+    </style>
+    <!--jquery右下角pop弹窗start -->
+    <script type="text/javascript">
+        //记得加载jquery
+        //作者：yanue
+        //使用参数：1.标题，2.链接地址，3.内容简介
+        window.onload = function () {
+            var pop = new Pop("部分浏览器存在兼容性问题",
+                "#",
+                "若无法正常显示考试题目或考试剩余时间，请切换高级IE或谷歌浏览器..");
+        }
+    </script>
+
+    <style type="text/css">
+        *html {
+            background-image: url(about:blank);
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+    <form name="form1" method="post" action="test.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTIwMTc1MDQ4MDBkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYBBQxJbWFnZUJ1dHRvbjHE2q1O6MpL5HWFcpn8lY2oTYy3LA==" />
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="75BBA7D6" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEW/QECysbRtg0CxZTYtgICxJTYtgICx5TYtgICxpTYtgICmvvy2A4CxpTYtgICx5TYtgICxJTYtgICxZTYtgICmfvy2A4Cx5TYtgICxpTYtgICxZTYtgICxJTYtgICmPvy2A4CyJTYtgICyZTYtgICypTYtgICy5TYtgICl/vy2A4CwZTYtgICwJTYtgICw5TYtgICwpTYtgICnvvy2A4CwpTYtgICw5TYtgICwJTYtgICwZTYtgICnfvy2A4Cw5TYtgICwpTYtgICwZTYtgICwJTYtgICnPvy2A4CxJTYtgICxZTYtgICxpTYtgICx5TYtgICm/vy2A4CzZTYtgICzJTYtgICz5TYtgICzpTYtgICkvvy2A4CzpTYtgICz5TYtgICzJTYtgICzZTYtgICkfvy2A4CxpSYuQICx5SYuQICxJSYuQICxZSYuQICmfuy1w4CxpScuQICx5ScuQICxJScuQICxZScuQICmfu21w4CxpSQuQICx5SQuQICxJSQuQICxZSQuQICmfu61w4CxpSUuQICx5SUuQICxJSUuQICxZSUuQICmfu+1w4CxpSIuQICx5SIuQICxJSIuQICxZSIuQICmfui1w4CxpSMuQICx5SMuQICxJSMuQICxZSMuQICmfum1w4CxpSAuQICx5SAuQICxJSAuQICxZSAuQICmfuq1w4CxpSEuQICx5SEuQICxJSEuQICxZSEuQICmfuu1w4CxpS4uQICx5S4uQICxJS4uQICxZS4uQICmfuS1w4CxpS8uQICx5S8uQICxJS8uQICxZS8uQICmfuW1w4Cx5SYuQICxpSYuQICxZSYuQICxJSYuQICmPuy1w4Cx5ScuQICxpScuQICxZScuQICxJScuQICmPu21w4Cx5SQuQICxpSQuQICxZSQuQICxJSQuQICmPu61w4Cx5SUuQICxpSUuQICxZSUuQICxJSUuQICmPu+1w4Cx5SIuQICxpSIuQICxZSIuQICxJSIuQICmPui1w4Cx5SMuQICxpSMuQICxZSMuQICxJSMuQICmPum1w4Cx5SAuQICxpSAuQICxZSAuQICxJSAuQICmPuq1w4Cx5SEuQICxpSEuQICxZSEuQICxJSEuQICmPuu1w4Cx5S4uQICxpS4uQICxZS4uQICxJS4uQICmPuS1w4Cx5S8uQICxpS8uQICxZS8uQICxJS8uQICmPuW1w4CyJSYuQICyZSYuQICypSYuQICy5SYuQICl/uy1w4CyJScuQICyZScuQICypScuQICy5ScuQICl/u21w4CyJSQuQICyZSQuQICypSQuQICy5SQuQICl/u61w4CyJSUuQICyZSUuQICypSUuQICy5SUuQICl/u+1w4CyJSIuQICyZSIuQICypSIuQICy5SIuQICl/ui1w4CyJSMuQICyZSMuQICypSMuQICy5SMuQICl/um1w4CyJSAuQICyZSAuQICypSAuQICy5SAuQICl/uq1w4CyJSEuQICyZSEuQICypSEuQICy5SEuQICl/uu1w4CyJS4uQICyZS4uQICypS4uQICy5S4uQICl/uS1w4CyJS8uQICyZS8uQICypS8uQICy5S8uQICl/uW1w4CwZSYuQICwJSYuQICw5SYuQICwpSYuQICnvuy1w4CwZScuQICwJScuQICw5ScuQICwpScuQICnvu21w4CwZSQuQICwJSQuQICw5SQuQICwpSQuQICnvu61w4CwZSUuQICwJSUuQICw5SUuQICwpSUuQICnvu+1w4CwZSIuQICwJSIuQICw5SIuQICwpSIuQICnvui1w4CwZSMuQICwJSMuQICw5SMuQICwpSMuQICnvum1w4CwZSAuQICwJSAuQICw5SAuQICwpSAuQICnvuq1w4CwZSEuQICwJSEuQICw5SEuQICwpSEuQICnvuu1w4CwZS4uQICwJS4uQICw5S4uQICwpS4uQICnvuS1w4CwZS8uQICwJS8uQICw5S8uQICwpS8uQICnvuW1w4C0sKZ0wgCn+HP7QPOYbEHPow3IHRYwP3abgdjypTFYg==" />
+
+        <div class="head">
+            <img src="images/test/header.png" />
+            <h1>资助政策知识网上考试系统
+     
+            </h1>
+        </div>
+
+        <div class="leftBox">
+            <img src="images/test/leftBox.png" />
+            <h1>考试题目</h1>
+
+            <h2>资助政策考试</h2>
+
+            <h3>------------</h3>
+
+            <h4>共&nbsp;<label style="color: #8e4022">50</label>&nbsp;题</h4>
+
+            <h5>------------</h5>
+
+            <h6>------------</h6>
+
+
+            <h7>剩&nbsp;<label id="remain" style="color:#8e4022" > 50</label>&nbsp;题</h7>
+
+            <h8>时间剩余</h8>
+
+            <h9 class="divTime">
+            
+             
+             </h9>
+
+
+        </div>
+        <div class="rightBox">
+        </div>
+
+
+
+        <div class="content">
+
+
+            <table id="tbl" border="0">
+	<tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">1.高校将于11月30前将国家励志奖学金一次性发放给获奖学生，这是否应该记入学生的学籍档案()、<br><Br></font></span><span id="rbtl0" class="radio"><input id="rbtl0_0" type="radio" name="rbtl0" value="A" /><label for="rbtl0_0"> A、应该<br></label><br /><input id="rbtl0_1" type="radio" name="rbtl0" value="B" /><label for="rbtl0_1"> B、不应该<br></label><br /><input id="rbtl0_2" type="radio" name="rbtl0" value="C" /><label for="rbtl0_2"> C、看学校而定<br></label><br /><input id="rbtl0_3" type="radio" name="rbtl0" value="D" /><label for="rbtl0_3"> D、可以不记<br></label></span><span id="0"><font color="SpringGreen" size="4"></font></span><span id="lbl0" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">2.下列关于生源地信用助学贷款的违约后果说法不正确的是()<br><Br></font></span><span id="rbtl1" class="radio"><input id="rbtl1_0" type="radio" name="rbtl1" value="A" /><label for="rbtl1_0"> A、严重违约的贷款人将承担法律责任<br></label><br /><input id="rbtl1_1" type="radio" name="rbtl1" value="B" /><label for="rbtl1_1"> B、对恶意拖欠贷款的违约贷款人采取限制措施，但不影响其住房贷款，汽车贷款等金融服务<br></label><br /><input id="rbtl1_2" type="radio" name="rbtl1" value="C" /><label for="rbtl1_2"> C、对于连续拖欠还款行为严重的人，政府和银行将通过新闻媒体和网络等信息公布其姓名，公民身份证号码，毕业学校及具体违约行为等信息<br></label><br /><input id="rbtl1_3" type="radio" name="rbtl1" value="D" /><label for="rbtl1_3"> D、借款学生未能及时偿还贷款，银行将对其违约还款金额计收罚息<br></label></span><span id="1"><font color="SpringGreen" size="4"></font></span><span id="lbl1" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">3.生源地信用助学贷款学生由专科升学为本科，若想将原有贷款展期，必须进行的是？<br><Br></font></span><span id="rbtl2" class="radio"><input id="rbtl2_0" type="radio" name="rbtl2" value="A" /><label for="rbtl2_0"> A、贷款申请变更。<br></label><br /><input id="rbtl2_1" type="radio" name="rbtl2" value="B" /><label for="rbtl2_1"> B、就学信息变更。<br></label><br /><input id="rbtl2_2" type="radio" name="rbtl2" value="C" /><label for="rbtl2_2"> C、学籍信息变更。<br></label><br /><input id="rbtl2_3" type="radio" name="rbtl2" value="D" /><label for="rbtl2_3"> D、身份信息变更。<br></label></span><span id="2"><font color="SpringGreen" size="4"></font></span><span id="lbl2" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">4.精准扶贫“六个精准”是指：扶持对象精准、---、---、---、因村派人精准、脱贫成效精准。   ①项目安排精准
+②措施到户精准
+③保障到位精准
+④资金使用精准<br><Br></font></span><span id="rbtl3" class="radio"><input id="rbtl3_0" type="radio" name="rbtl3" value="A" /><label for="rbtl3_0"> A、①③④<br></label><br /><input id="rbtl3_1" type="radio" name="rbtl3" value="B" /><label for="rbtl3_1"> B、①②④<br></label><br /><input id="rbtl3_2" type="radio" name="rbtl3" value="C" /><label for="rbtl3_2"> C、②③④<br></label><br /><input id="rbtl3_3" type="radio" name="rbtl3" value="D" /><label for="rbtl3_3"> D、①②③<br></label></span><span id="3"><font color="SpringGreen" size="4"></font></span><span id="lbl3" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">5.国家助学贷款需要的条件是（）   ①家庭经济困难
+②具有中华人民共和国国籍、年满16周岁的需持有中华人民共和国居民身份证
+③具有完全民事行为能力
+④诚实守信，遵纪守法，无违法违规行为   ⑤学习努力，能够正常完成学业<br><Br></font></span><span id="rbtl4" class="radio"><input id="rbtl4_0" type="radio" name="rbtl4" value="A" /><label for="rbtl4_0"> A、①③④⑤<br></label><br /><input id="rbtl4_1" type="radio" name="rbtl4" value="B" /><label for="rbtl4_1"> B、①②④⑤<br></label><br /><input id="rbtl4_2" type="radio" name="rbtl4" value="C" /><label for="rbtl4_2"> C、①②③④⑤<br></label><br /><input id="rbtl4_3" type="radio" name="rbtl4" value="D" /><label for="rbtl4_3"> D、①②③④<br></label></span><span id="4"><font color="SpringGreen" size="4"></font></span><span id="lbl4" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">6.关于印发广西中等职业学校毕业生升入高等职业学校就读的家庭经济困难学生学费补助资金管理暂行办法所称中等职业学校毕业生升入高等职业学校就读的家庭经济困难学生不包括（）<br><Br></font></span><span id="rbtl5" class="radio"><input id="rbtl5_0" type="radio" name="rbtl5" value="A" /><label for="rbtl5_0"> A、2013年入学的学生<br></label><br /><input id="rbtl5_1" type="radio" name="rbtl5" value="B" /><label for="rbtl5_1"> B、2014年入学的学生<br></label><br /><input id="rbtl5_2" type="radio" name="rbtl5" value="C" /><label for="rbtl5_2"> C、2016年入学的学生<br></label><br /><input id="rbtl5_3" type="radio" name="rbtl5" value="D" /><label for="rbtl5_3"> D、2018年入学的学生<br></label></span><span id="5"><font color="SpringGreen" size="4"></font></span><span id="lbl5" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">7.高校每年__月初统计分析本校生源地在广西的助学贷款学生还款、利息支付、存在风险等情况，撰写本校的助学贷款专户报告并报自治区资助办。<br><Br></font></span><span id="rbtl6" class="radio"><input id="rbtl6_0" type="radio" name="rbtl6" value="A" /><label for="rbtl6_0"> A、12月<br></label><br /><input id="rbtl6_1" type="radio" name="rbtl6" value="B" /><label for="rbtl6_1"> B、9月<br></label><br /><input id="rbtl6_2" type="radio" name="rbtl6" value="C" /><label for="rbtl6_2"> C、3月<br></label><br /><input id="rbtl6_3" type="radio" name="rbtl6" value="D" /><label for="rbtl6_3"> D、5月<br></label></span><span id="6"><font color="SpringGreen" size="4"></font></span><span id="lbl6" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">8.在家庭经济困难学生认定程序中，下列哪一项不属于评议小组进行民主评议时应着重考虑的情况（)、<br><Br></font></span><span id="rbtl7" class="radio"><input id="rbtl7_0" type="radio" name="rbtl7" value="A" /><label for="rbtl7_0"> A、享受城乡最低生活保障政策家庭学生<br></label><br /><input id="rbtl7_1" type="radio" name="rbtl7" value="B" /><label for="rbtl7_1"> B、烈士子女<br></label><br /><input id="rbtl7_2" type="radio" name="rbtl7" value="C" /><label for="rbtl7_2"> C、家庭成员长期患重病<br></label><br /><input id="rbtl7_3" type="radio" name="rbtl7" value="D" /><label for="rbtl7_3"> D、家庭遭遇不可抗力及其它特殊情况造成人生及财产重大损失，超越家庭经济承受能力的学生<br></label></span><span id="7"><font color="SpringGreen" size="4"></font></span><span id="lbl7" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">9.入学资助项目的资助标准为：省(自治区、直辖市)外院校录取的新生每人（）元<br><Br></font></span><span id="rbtl8" class="radio"><input id="rbtl8_0" type="radio" name="rbtl8" value="A" /><label for="rbtl8_0"> A、300<br></label><br /><input id="rbtl8_1" type="radio" name="rbtl8" value="B" /><label for="rbtl8_1"> B、500<br></label><br /><input id="rbtl8_2" type="radio" name="rbtl8" value="C" /><label for="rbtl8_2"> C、1000<br></label><br /><input id="rbtl8_3" type="radio" name="rbtl8" value="D" /><label for="rbtl8_3"> D、2000<br></label></span><span id="8"><font color="SpringGreen" size="4"></font></span><span id="lbl8" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">10.学生在校期间的助学贷款利息由（）全额贴息。<br><Br></font></span><span id="rbtl9" class="radio"><input id="rbtl9_0" type="radio" name="rbtl9" value="A" /><label for="rbtl9_0"> A、财政<br></label><br /><input id="rbtl9_1" type="radio" name="rbtl9" value="B" /><label for="rbtl9_1"> B、学生<br></label><br /><input id="rbtl9_2" type="radio" name="rbtl9" value="C" /><label for="rbtl9_2"> C、学校<br></label><br /><input id="rbtl9_3" type="radio" name="rbtl9" value="D" /><label for="rbtl9_3"> D、财政和学校各承担一部分<br></label></span><span id="9"><font color="SpringGreen" size="4"></font></span><span id="lbl9" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">11.国家助学贷款利率按（）规定的同档次贷款利率执行。<br><Br></font></span><span id="rbtl10" class="radio"><input id="rbtl10_0" type="radio" name="rbtl10" value="A" /><label for="rbtl10_0"> A、国家开发银行<br></label><br /><input id="rbtl10_1" type="radio" name="rbtl10" value="B" /><label for="rbtl10_1"> B、中国人民银行<br></label><br /><input id="rbtl10_2" type="radio" name="rbtl10" value="C" /><label for="rbtl10_2"> C、中国银行<br></label><br /><input id="rbtl10_3" type="radio" name="rbtl10" value="D" /><label for="rbtl10_3"> D、中国农业银行<br></label></span><span id="10"><font color="SpringGreen" size="4"></font></span><span id="lbl10" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">12.入学资助项目的管理和实施坚持什么样的原则()    ①公开透明
+②量入为出
+③突出重点
+④专款专用<br><Br></font></span><span id="rbtl11" class="radio"><input id="rbtl11_0" type="radio" name="rbtl11" value="A" /><label for="rbtl11_0"> A、①③④<br></label><br /><input id="rbtl11_1" type="radio" name="rbtl11" value="B" /><label for="rbtl11_1"> B、①②④<br></label><br /><input id="rbtl11_2" type="radio" name="rbtl11" value="C" /><label for="rbtl11_2"> C、②③④<br></label><br /><input id="rbtl11_3" type="radio" name="rbtl11" value="D" /><label for="rbtl11_3"> D、①②③④<br></label></span><span id="11"><font color="SpringGreen" size="4"></font></span><span id="lbl11" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">13.国家助学补偿办法中的基层单位指的是（）   ①国有控股中小企业单位
+②县监察局
+③县级人民政府及以下单位
+④县民政局<br><Br></font></span><span id="rbtl12" class="radio"><input id="rbtl12_0" type="radio" name="rbtl12" value="A" /><label for="rbtl12_0"> A、①③<br></label><br /><input id="rbtl12_1" type="radio" name="rbtl12" value="B" /><label for="rbtl12_1"> B、②④<br></label><br /><input id="rbtl12_2" type="radio" name="rbtl12" value="C" /><label for="rbtl12_2"> C、②③<br></label><br /><input id="rbtl12_3" type="radio" name="rbtl12" value="D" /><label for="rbtl12_3"> D、①④<br></label></span><span id="12"><font color="SpringGreen" size="4"></font></span><span id="lbl12" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">14.对当年考取普通高校的家庭经济困难考生,按每人___元标准发放高考入学政府资助金,帮助解决大学第一年的基本学习、生活费用。()<br><Br></font></span><span id="rbtl13" class="radio"><input id="rbtl13_0" type="radio" name="rbtl13" value="A" /><label for="rbtl13_0"> A、4000<br></label><br /><input id="rbtl13_1" type="radio" name="rbtl13" value="B" /><label for="rbtl13_1"> B、6000<br></label><br /><input id="rbtl13_2" type="radio" name="rbtl13" value="C" /><label for="rbtl13_2"> C、5000<br></label><br /><input id="rbtl13_3" type="radio" name="rbtl13" value="D" /><label for="rbtl13_3"> D、8000<br></label></span><span id="13"><font color="SpringGreen" size="4"></font></span><span id="lbl13" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">15.对当年录取普通高校的新生和高校在读生,专科、本科每年提供____元,研究生每年提供12000元额度的生源地信用贷款。<br><Br></font></span><span id="rbtl14" class="radio"><input id="rbtl14_0" type="radio" name="rbtl14" value="A" /><label for="rbtl14_0"> A、4000<br></label><br /><input id="rbtl14_1" type="radio" name="rbtl14" value="B" /><label for="rbtl14_1"> B、6000<br></label><br /><input id="rbtl14_2" type="radio" name="rbtl14" value="C" /><label for="rbtl14_2"> C、5000<br></label><br /><input id="rbtl14_3" type="radio" name="rbtl14" value="D" /><label for="rbtl14_3"> D、8000<br></label></span><span id="14"><font color="SpringGreen" size="4"></font></span><span id="lbl14" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">16.普通本科高校高等职业学校国家助学金管理实施细则是针对于根据国家有关规定批准设立、实施高等教育的全日制（）设置的。<br><Br></font></span><span id="rbtl15" class="radio"><input id="rbtl15_0" type="radio" name="rbtl15" value="A" /><label for="rbtl15_0"> A、普通本科高等学校<br></label><br /><input id="rbtl15_1" type="radio" name="rbtl15" value="B" /><label for="rbtl15_1"> B、高等职业学校<br></label><br /><input id="rbtl15_2" type="radio" name="rbtl15" value="C" /><label for="rbtl15_2"> C、高等专科学校<br></label><br /><input id="rbtl15_3" type="radio" name="rbtl15" value="D" /><label for="rbtl15_3"> D、以上全部<br></label></span><span id="15"><font color="SpringGreen" size="4"></font></span><span id="lbl15" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">17.家庭经济困难学生中有什么情况，可优先享受国家助学金？（）<br><Br></font></span><span id="rbtl16" class="radio"><input id="rbtl16_0" type="radio" name="rbtl16" value="A" /><label for="rbtl16_0"> A、成绩优异的学生<br></label><br /><input id="rbtl16_1" type="radio" name="rbtl16" value="B" /><label for="rbtl16_1"> B、父母在外打工的学生<br></label><br /><input id="rbtl16_2" type="radio" name="rbtl16" value="C" /><label for="rbtl16_2"> C、农村建档立卡扶贫户学生<br></label><br /><input id="rbtl16_3" type="radio" name="rbtl16" value="D" /><label for="rbtl16_3"> D、独生子女<br></label></span><span id="16"><font color="SpringGreen" size="4"></font></span><span id="lbl16" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">18.高等学校根据本校制定的评审实施办法对学生申请材料进行评审，提出享受学费补助初步名单，报学校评审领导小组审核后，按年级分班级列出享受学费补助的人员名单，在校内公示（）。公示无异后确定补助人员名单。<br><Br></font></span><span id="rbtl17" class="radio"><input id="rbtl17_0" type="radio" name="rbtl17" value="A" /><label for="rbtl17_0"> A、15个工作日<br></label><br /><input id="rbtl17_1" type="radio" name="rbtl17" value="B" /><label for="rbtl17_1"> B、10个工作日<br></label><br /><input id="rbtl17_2" type="radio" name="rbtl17" value="C" /><label for="rbtl17_2"> C、7个工作日<br></label><br /><input id="rbtl17_3" type="radio" name="rbtl17" value="D" /><label for="rbtl17_3"> D、5个工作日<br></label></span><span id="17"><font color="SpringGreen" size="4"></font></span><span id="lbl17" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">19.全日制普通本专科学生（含第二学士学位、高职学生）每人每年申请贷款额度不超过（）元；年度学费和住宿费标准总和低于（）元的，贷款额度可按照学费和住宿标准总和确定。<br><Br></font></span><span id="rbtl18" class="radio"><input id="rbtl18_0" type="radio" name="rbtl18" value="A" /><label for="rbtl18_0"> A、12000、8000<br></label><br /><input id="rbtl18_1" type="radio" name="rbtl18" value="B" /><label for="rbtl18_1"> B、12000、12000<br></label><br /><input id="rbtl18_2" type="radio" name="rbtl18" value="C" /><label for="rbtl18_2"> C、8000、12000<br></label><br /><input id="rbtl18_3" type="radio" name="rbtl18" value="D" /><label for="rbtl18_3"> D、8000、8000<br></label></span><span id="18"><font color="SpringGreen" size="4"></font></span><span id="lbl18" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">20.自治区人民政府奖学金的最终解释权归什么部门?()<br><Br></font></span><span id="rbtl19" class="radio"><input id="rbtl19_0" type="radio" name="rbtl19" value="A" /><label for="rbtl19_0"> A、自治区财政厅，教育厅<br></label><br /><input id="rbtl19_1" type="radio" name="rbtl19" value="B" /><label for="rbtl19_1"> B、国家财政厅<br></label><br /><input id="rbtl19_2" type="radio" name="rbtl19" value="C" /><label for="rbtl19_2"> C、国家教育厅<br></label><br /><input id="rbtl19_3" type="radio" name="rbtl19" value="D" /><label for="rbtl19_3"> D、高校资助中心<br></label></span><span id="19"><font color="SpringGreen" size="4"></font></span><span id="lbl19" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">21.国家助学金的基本申请条件，其中正确的为()    ①热爱社会主义国家，拥护中国共产党的领导
+②诚实守信，道德品质优良；勤奋学习，积极向上
+③父母身体属于亚健康
+④家庭经济困难，生活俭朴<br><Br></font></span><span id="rbtl20" class="radio"><input id="rbtl20_0" type="radio" name="rbtl20" value="A" /><label for="rbtl20_0"> A、①③④<br></label><br /><input id="rbtl20_1" type="radio" name="rbtl20" value="B" /><label for="rbtl20_1"> B、①②④<br></label><br /><input id="rbtl20_2" type="radio" name="rbtl20" value="C" /><label for="rbtl20_2"> C、②③④<br></label><br /><input id="rbtl20_3" type="radio" name="rbtl20" value="D" /><label for="rbtl20_3"> D、①②③<br></label></span><span id="20"><font color="SpringGreen" size="4"></font></span><span id="lbl20" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">22.广西自治区人民政府奖学金奖励标准为每生每年多少元。（）<br><Br></font></span><span id="rbtl21" class="radio"><input id="rbtl21_0" type="radio" name="rbtl21" value="A" /><label for="rbtl21_0"> A、2000<br></label><br /><input id="rbtl21_1" type="radio" name="rbtl21" value="B" /><label for="rbtl21_1"> B、3000<br></label><br /><input id="rbtl21_2" type="radio" name="rbtl21" value="C" /><label for="rbtl21_2"> C、5000<br></label><br /><input id="rbtl21_3" type="radio" name="rbtl21" value="D" /><label for="rbtl21_3"> D、8000<br></label></span><span id="21"><font color="SpringGreen" size="4"></font></span><span id="lbl21" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">23.国家助学金分为一等国家助学金、二等国家助学金，其中一等国家助学金补助标准为每生()元。<br><Br></font></span><span id="rbtl22" class="radio"><input id="rbtl22_0" type="radio" name="rbtl22" value="A" /><label for="rbtl22_0"> A、3500<br></label><br /><input id="rbtl22_1" type="radio" name="rbtl22" value="B" /><label for="rbtl22_1"> B、2500<br></label><br /><input id="rbtl22_2" type="radio" name="rbtl22" value="C" /><label for="rbtl22_2"> C、2000<br></label><br /><input id="rbtl22_3" type="radio" name="rbtl22" value="D" /><label for="rbtl22_3"> D、4000<br></label></span><span id="22"><font color="SpringGreen" size="4"></font></span><span id="lbl22" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">24.申请国家助学贷款的借款人不需要向银行出具的资料：（）<br><Br></font></span><span id="rbtl23" class="radio"><input id="rbtl23_0" type="radio" name="rbtl23" value="A" /><label for="rbtl23_0"> A、借款人的身份证原件与复印件<br></label><br /><input id="rbtl23_1" type="radio" name="rbtl23" value="B" /><label for="rbtl23_1"> B、学生证原件与复印件<br></label><br /><input id="rbtl23_2" type="radio" name="rbtl23" value="C" /><label for="rbtl23_2"> C、见证人的身份证复印件<br></label><br /><input id="rbtl23_3" type="radio" name="rbtl23" value="D" /><label for="rbtl23_3"> D、收入证明<br></label></span><span id="23"><font color="SpringGreen" size="4"></font></span><span id="lbl23" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">25.广西高等学校毕业生学费和国家助学贷款补偿暂行办法关于补偿程序中正确的选项为：<br><Br></font></span><span id="rbtl24" class="radio"><input id="rbtl24_0" type="radio" name="rbtl24" value="A" /><label for="rbtl24_0"> A、自治区按照有关规定，将补偿经费分配下达各有关省学生资助管理部门，<br></label><br /><input id="rbtl24_1" type="radio" name="rbtl24" value="B" /><label for="rbtl24_1"> B、高校毕业生毕业后的择日自愿到基层就业的，三年服务期内可以补报，逾期不再受理。<br></label><br /><input id="rbtl24_2" type="radio" name="rbtl24" value="C" /><label for="rbtl24_2"> C、每年县学生资助管理部门需在不超过4月底的时间范围内将补偿返还给高校毕业生本人。<br></label><br /><input id="rbtl24_3" type="radio" name="rbtl24" value="D" /><label for="rbtl24_3"> D、学费和国家助学贷款补偿资格需经广西学生资助管理办公室审定和批准。<br></label></span><span id="24"><font color="SpringGreen" size="4"></font></span><span id="lbl24" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">26.下面哪项不是个人在征信活动中的义务（）<br><Br></font></span><span id="rbtl25" class="radio"><input id="rbtl25_0" type="radio" name="rbtl25" value="A" /><label for="rbtl25_0"> A、提供正确的个人基本信息的义务。<br></label><br /><input id="rbtl25_1" type="radio" name="rbtl25" value="B" /><label for="rbtl25_1"> B、及时更新自身信息的义务。<br></label><br /><input id="rbtl25_2" type="radio" name="rbtl25" value="C" /><label for="rbtl25_2"> C、关心自己信用记录的义务。<br></label><br /><input id="rbtl25_3" type="radio" name="rbtl25" value="D" /><label for="rbtl25_3"> D、随时让他人查阅自己个人信息的义务<br></label></span><span id="25"><font color="SpringGreen" size="4"></font></span><span id="lbl25" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">27.自治区人民政府奖学金资助对象为（）<br><Br></font></span><span id="rbtl26" class="radio"><input id="rbtl26_0" type="radio" name="rbtl26" value="A" /><label for="rbtl26_0"> A、家庭经济困难的全日制本专科在校大学生<br></label><br /><input id="rbtl26_1" type="radio" name="rbtl26" value="B" /><label for="rbtl26_1"> B、品学优良的全日制本专科在校大学生<br></label><br /><input id="rbtl26_2" type="radio" name="rbtl26" value="C" /><label for="rbtl26_2"> C、当年考入普通高校的全日制本专科大学生<br></label><br /><input id="rbtl26_3" type="radio" name="rbtl26" value="D" /><label for="rbtl26_3"> D、全区高校中家庭经济困难、品学优良的全日制本专科在校学生，包括当年考入普通高校的全日制本专科学生<br></label></span><span id="26"><font color="SpringGreen" size="4"></font></span><span id="lbl26" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">28.从2015年起，国家对直接招收为士官的高等学校学生施行国家资助，入伍时对其在校期间缴纳的学费实行一次性补偿或获得的国家助学贷款实行代偿。其中的国家助学贷款包括（）。<br><Br></font></span><span id="rbtl27" class="radio"><input id="rbtl27_0" type="radio" name="rbtl27" value="A" /><label for="rbtl27_0"> A、校园地国家助学贷款<br></label><br /><input id="rbtl27_1" type="radio" name="rbtl27" value="B" /><label for="rbtl27_1"> B、生源地信用助学贷款<br></label><br /><input id="rbtl27_2" type="radio" name="rbtl27" value="C" /><label for="rbtl27_2"> C、区级助学贷款<br></label><br /><input id="rbtl27_3" type="radio" name="rbtl27" value="D" /><label for="rbtl27_3"> D、校园地以及生源地信用助学贷款<br></label></span><span id="27"><font color="SpringGreen" size="4"></font></span><span id="lbl27" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">29.一等国家助学金补助标准为每年每生（）元，二等国家助学金的补助标准为每年每生（）元。<br><Br></font></span><span id="rbtl28" class="radio"><input id="rbtl28_0" type="radio" name="rbtl28" value="A" /><label for="rbtl28_0"> A、3500、2800<br></label><br /><input id="rbtl28_1" type="radio" name="rbtl28" value="B" /><label for="rbtl28_1"> B、3800、2500<br></label><br /><input id="rbtl28_2" type="radio" name="rbtl28" value="C" /><label for="rbtl28_2"> C、4000、2000<br></label><br /><input id="rbtl28_3" type="radio" name="rbtl28" value="D" /><label for="rbtl28_3"> D、4000、2800<br></label></span><span id="28"><font color="SpringGreen" size="4"></font></span><span id="lbl28" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">30.广西高等学校毕业生学费和国家助学贷款补偿暂行办法是从哪年开始实施的？<br><Br></font></span><span id="rbtl29" class="radio"><input id="rbtl29_0" type="radio" name="rbtl29" value="A" /><label for="rbtl29_0"> A、2013<br></label><br /><input id="rbtl29_1" type="radio" name="rbtl29" value="B" /><label for="rbtl29_1"> B、2014<br></label><br /><input id="rbtl29_2" type="radio" name="rbtl29" value="C" /><label for="rbtl29_2"> C、2015<br></label><br /><input id="rbtl29_3" type="radio" name="rbtl29" value="D" /><label for="rbtl29_3"> D、2016<br></label></span><span id="29"><font color="SpringGreen" size="4"></font></span><span id="lbl29" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">31.每年（）前，学生根据本实施细则规定的国家助学金基本申请条件，向所在二级学院提出申请，并递交《普通高校国家助学金申请表》（）<br><Br></font></span><span id="rbtl30" class="radio"><input id="rbtl30_0" type="radio" name="rbtl30" value="A" /><label for="rbtl30_0"> A、8月30日<br></label><br /><input id="rbtl30_1" type="radio" name="rbtl30" value="B" /><label for="rbtl30_1"> B、9月30日<br></label><br /><input id="rbtl30_2" type="radio" name="rbtl30" value="C" /><label for="rbtl30_2"> C、10月30日<br></label><br /><input id="rbtl30_3" type="radio" name="rbtl30" value="D" /><label for="rbtl30_3"> D、11月30日<br></label></span><span id="30"><font color="SpringGreen" size="4"></font></span><span id="lbl30" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">32.关于贷款政策，以下说法错误的是（）<br><Br></font></span><span id="rbtl31" class="radio"><input id="rbtl31_0" type="radio" name="rbtl31" value="A" /><label for="rbtl31_0"> A、每个贷款人每年申请的贷款原则上最高不超过8000元。<br></label><br /><input id="rbtl31_1" type="radio" name="rbtl31" value="B" /><label for="rbtl31_1"> B、高校在读学生当年在高校获得了国家助学贷款，同时可以申请生源地信用助学贷款。<br></label><br /><input id="rbtl31_2" type="radio" name="rbtl31" value="C" /><label for="rbtl31_2"> C、生源地信用助学贷款期限原则上按全日制本专科学制加10年确定，最迟不超过14年。<br></label><br /><input id="rbtl31_3" type="radio" name="rbtl31" value="D" /><label for="rbtl31_3"> D、生源地信用助学贷款利息按年计收。<br></label></span><span id="31"><font color="SpringGreen" size="4"></font></span><span id="lbl31" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">33.家庭经济困难大学新生入学补助的申请程序是什么（）①考生向所在高中学校组织本校符合资助条件的大学贫困新生提出资助申请。②由考生所在学校发放补助金，并将贫困新生材料报送上级主管部门备案。③由学校贫困生认定工作小组审定和建立高中贫困生信息档案。④市、县两级教育行政部门审查大学贫困新生申请材料。⑤考生向所在高中学校提交《高中学生家庭经济困难学生认定申请表》和《高中学生家庭经济困难情况调查表》并出具相关证明材料。⑥核定后公示。
+<br><Br></font></span><span id="rbtl32" class="radio"><input id="rbtl32_0" type="radio" name="rbtl32" value="A" /><label for="rbtl32_0"> A、⑤③④①⑥②<br></label><br /><input id="rbtl32_1" type="radio" name="rbtl32" value="B" /><label for="rbtl32_1"> B、①⑤③④②⑥<br></label><br /><input id="rbtl32_2" type="radio" name="rbtl32" value="C" /><label for="rbtl32_2"> C、①③⑤④②⑥<br></label><br /><input id="rbtl32_3" type="radio" name="rbtl32" value="D" /><label for="rbtl32_3"> D、⑤③①④⑥②<br></label></span><span id="32"><font color="SpringGreen" size="4"></font></span><span id="lbl32" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">34.各省（区、市）人民政府征兵办公室应在接收退兵后及时将被退回学生的姓名、就读高校、退兵原因等情况逐级上报至哪里（）<br><Br></font></span><span id="rbtl33" class="radio"><input id="rbtl33_0" type="radio" name="rbtl33" value="A" /><label for="rbtl33_0"> A、国防部征兵办公室<br></label><br /><input id="rbtl33_1" type="radio" name="rbtl33" value="B" /><label for="rbtl33_1"> B、国防部招兵办公室<br></label><br /><input id="rbtl33_2" type="radio" name="rbtl33" value="C" /><label for="rbtl33_2"> C、政府征兵办公室<br></label><br /><input id="rbtl33_3" type="radio" name="rbtl33" value="D" /><label for="rbtl33_3"> D、政府招兵办公室<br></label></span><span id="33"><font color="SpringGreen" size="4"></font></span><span id="lbl33" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">35.自治区对获得国家助学贷款代偿资助资格的高校毕业生采取逐年代偿资助的办法，毕业后第一年和第二年各代偿助学贷款本息的30%，第三年代偿本息的__%，三年代偿资助完毕。<br><Br></font></span><span id="rbtl34" class="radio"><input id="rbtl34_0" type="radio" name="rbtl34" value="A" /><label for="rbtl34_0"> A、35%<br></label><br /><input id="rbtl34_1" type="radio" name="rbtl34" value="B" /><label for="rbtl34_1"> B、40%<br></label><br /><input id="rbtl34_2" type="radio" name="rbtl34" value="C" /><label for="rbtl34_2"> C、45%<br></label><br /><input id="rbtl34_3" type="radio" name="rbtl34" value="D" /><label for="rbtl34_3"> D、47%<br></label></span><span id="34"><font color="SpringGreen" size="4"></font></span><span id="lbl34" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">36.高校学生资助管理机构负责组织评审，提出本校当年政府奖学金获奖学生建议名单，报学校领导集体研究通过后，在校内进行不少于___工作日的公示。<br><Br></font></span><span id="rbtl35" class="radio"><input id="rbtl35_0" type="radio" name="rbtl35" value="A" /><label for="rbtl35_0"> A、3个<br></label><br /><input id="rbtl35_1" type="radio" name="rbtl35" value="B" /><label for="rbtl35_1"> B、4个<br></label><br /><input id="rbtl35_2" type="radio" name="rbtl35" value="C" /><label for="rbtl35_2"> C、5个<br></label><br /><input id="rbtl35_3" type="radio" name="rbtl35" value="D" /><label for="rbtl35_3"> D、7个<br></label></span><span id="35"><font color="SpringGreen" size="4"></font></span><span id="lbl35" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">37.公办普通本科高校要按10%的比例，高等职业学校要按5%的比例，从全日制学生实际缴纳学费总额中提取资助经费，专项用于()等。①学费减免②国家助学贷款风险补偿③看电影④校内无息借款⑤勤工助学⑥请同学吃饭⑦校内奖助学金⑧特殊困难补助等。<br><Br></font></span><span id="rbtl36" class="radio"><input id="rbtl36_0" type="radio" name="rbtl36" value="A" /><label for="rbtl36_0"> A、①③④⑤⑥⑦<br></label><br /><input id="rbtl36_1" type="radio" name="rbtl36" value="B" /><label for="rbtl36_1"> B、②③④⑤⑥⑧<br></label><br /><input id="rbtl36_2" type="radio" name="rbtl36" value="C" /><label for="rbtl36_2"> C、①②④⑤⑦⑧<br></label><br /><input id="rbtl36_3" type="radio" name="rbtl36" value="D" /><label for="rbtl36_3"> D、①②⑤⑥⑦⑧<br></label></span><span id="36"><font color="SpringGreen" size="4"></font></span><span id="lbl36" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">38.对于直接招收为士官的高校学生国家资助资金，由（）负责安排。<br><Br></font></span><span id="rbtl37" class="radio"><input id="rbtl37_0" type="radio" name="rbtl37" value="A" /><label for="rbtl37_0"> A、国家资助中心<br></label><br /><input id="rbtl37_1" type="radio" name="rbtl37" value="B" /><label for="rbtl37_1"> B、中央财政<br></label><br /><input id="rbtl37_2" type="radio" name="rbtl37" value="C" /><label for="rbtl37_2"> C、高校资助中心<br></label><br /><input id="rbtl37_3" type="radio" name="rbtl37" value="D" /><label for="rbtl37_3"> D、家庭所在地县级资助中心<br></label></span><span id="37"><font color="SpringGreen" size="4"></font></span><span id="lbl37" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">39.全曰制普通硕士研究生每人每年申请助学贷款额度不超过（）元。<br><Br></font></span><span id="rbtl38" class="radio"><input id="rbtl38_0" type="radio" name="rbtl38" value="A" /><label for="rbtl38_0"> A、6000<br></label><br /><input id="rbtl38_1" type="radio" name="rbtl38" value="B" /><label for="rbtl38_1"> B、8000<br></label><br /><input id="rbtl38_2" type="radio" name="rbtl38" value="C" /><label for="rbtl38_2"> C、10000<br></label><br /><input id="rbtl38_3" type="radio" name="rbtl38" value="D" /><label for="rbtl38_3"> D、12000<br></label></span><span id="38"><font color="SpringGreen" size="4"></font></span><span id="lbl38" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">40.国家励志奖学金奖励标准为每人每年多少元（）<br><Br></font></span><span id="rbtl39" class="radio"><input id="rbtl39_0" type="radio" name="rbtl39" value="A" /><label for="rbtl39_0"> A、2000<br></label><br /><input id="rbtl39_1" type="radio" name="rbtl39" value="B" /><label for="rbtl39_1"> B、3000<br></label><br /><input id="rbtl39_2" type="radio" name="rbtl39" value="C" /><label for="rbtl39_2"> C、5000<br></label><br /><input id="rbtl39_3" type="radio" name="rbtl39" value="D" /><label for="rbtl39_3"> D、8000<br></label></span><span id="39"><font color="SpringGreen" size="4"></font></span><span id="lbl39" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">41.生源地信用助学贷款借款学生在校期间利息由（）全额贴息。<br><Br></font></span><span id="rbtl40" class="radio"><input id="rbtl40_0" type="radio" name="rbtl40" value="A" /><label for="rbtl40_0"> A、市政府<br></label><br /><input id="rbtl40_1" type="radio" name="rbtl40" value="B" /><label for="rbtl40_1"> B、乡镇政府<br></label><br /><input id="rbtl40_2" type="radio" name="rbtl40" value="C" /><label for="rbtl40_2"> C、学校<br></label><br /><input id="rbtl40_3" type="radio" name="rbtl40" value="D" /><label for="rbtl40_3"> D、财政<br></label></span><span id="40"><font color="SpringGreen" size="4"></font></span><span id="lbl40" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">42.“精准扶贫”是_____提出的。<br><Br></font></span><span id="rbtl41" class="radio"><input id="rbtl41_0" type="radio" name="rbtl41" value="A" /><label for="rbtl41_0"> A、2013年习近平在湖南省湘西考察扶贫工作提出的。<br></label><br /><input id="rbtl41_1" type="radio" name="rbtl41" value="B" /><label for="rbtl41_1"> B、2014年习近平在河北省阜平县考察扶贫工作提出的。<br></label><br /><input id="rbtl41_2" type="radio" name="rbtl41" value="C" /><label for="rbtl41_2"> C、2013年习近平在河南省西平县考察扶贫工作提出的。<br></label><br /><input id="rbtl41_3" type="radio" name="rbtl41" value="D" /><label for="rbtl41_3"> D、2014年习近平在内蒙古自治区考察扶贫工作提出的。<br></label></span><span id="41"><font color="SpringGreen" size="4"></font></span><span id="lbl41" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">43.关于生源地贷款流程以下说法不正确的是（）<br><Br></font></span><span id="rbtl42" class="radio"><input id="rbtl42_0" type="radio" name="rbtl42" value="A" /><label for="rbtl42_0"> A、申请贷款的学生应向县（市、区）学生资助管理办公室提交申请资料。<br></label><br /><input id="rbtl42_1" type="radio" name="rbtl42" value="B" /><label for="rbtl42_1"> B、审查合格后，由县（市、区）学生资助管理办公室与申请贷款学生及共同贷款人签订合同。<br></label><br /><input id="rbtl42_2" type="radio" name="rbtl42" value="C" /><label for="rbtl42_2"> C、贷款学生携带贷款回执到高校报到，高校在规定时间内录入回执。<br></label><br /><input id="rbtl42_3" type="radio" name="rbtl42" value="D" /><label for="rbtl42_3"> D、县（市、区）资助办将贷款合同、回执送经办银行审批，审批后县（市、区）资助办即可发放贷款。<br></label></span><span id="42"><font color="SpringGreen" size="4"></font></span><span id="lbl42" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">44.对退役士兵教育资助的内容不包括（）<br><Br></font></span><span id="rbtl43" class="radio"><input id="rbtl43_0" type="radio" name="rbtl43" value="A" /><label for="rbtl43_0"> A、奖助学金<br></label><br /><input id="rbtl43_1" type="radio" name="rbtl43" value="B" /><label for="rbtl43_1"> B、学费资助<br></label><br /><input id="rbtl43_2" type="radio" name="rbtl43" value="C" /><label for="rbtl43_2"> C、住宿费<br></label><br /><input id="rbtl43_3" type="radio" name="rbtl43" value="D" /><label for="rbtl43_3"> D、生活费<br></label></span><span id="43"><font color="SpringGreen" size="4"></font></span><span id="lbl43" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">45.关于国家开发银行广西壮族自治区生源地信用助学贷款贷后管理暂行办法不正确的是（）<br><Br></font></span><span id="rbtl44" class="radio"><input id="rbtl44_0" type="radio" name="rbtl44" value="A" /><label for="rbtl44_0"> A、生源地贷款，是指开发银行向符合条件的家庭经济困难的普通高校新生和在校生发放的、在学生入学前户籍所在县（市、区）办理的助学贷款。<br></label><br /><input id="rbtl44_1" type="radio" name="rbtl44" value="B" /><label for="rbtl44_1"> B、生源地贷款合同变更主要包括账户变更、就学信息变更和还款计划变更。<br></label><br /><input id="rbtl44_2" type="radio" name="rbtl44" value="C" /><label for="rbtl44_2"> C、县资助办经办人每年6月底统计分析本县学生还款、利息支付、存在风险等情况，对贷款进行分析预测。<br></label><br /><input id="rbtl44_3" type="radio" name="rbtl44" value="D" /><label for="rbtl44_3"> D、高校负责保管的档案包括但不限于贷款受理证明、贷款资金到账明细表、毕业确认表、毕业学生列表。<br></label></span><span id="44"><font color="SpringGreen" size="4"></font></span><span id="lbl44" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">46.入学资助项目的资助标准为：省（自治区、直辖市）内院校录取的新生每人多少元。()<br><Br></font></span><span id="rbtl45" class="radio"><input id="rbtl45_0" type="radio" name="rbtl45" value="A" /><label for="rbtl45_0"> A、300<br></label><br /><input id="rbtl45_1" type="radio" name="rbtl45" value="B" /><label for="rbtl45_1"> B、500<br></label><br /><input id="rbtl45_2" type="radio" name="rbtl45" value="C" /><label for="rbtl45_2"> C、800<br></label><br /><input id="rbtl45_3" type="radio" name="rbtl45" value="D" /><label for="rbtl45_3"> D、1000<br></label></span><span id="45"><font color="SpringGreen" size="4"></font></span><span id="lbl45" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">47.国家二等助学金的资助标准为每人每年()元。<br><Br></font></span><span id="rbtl46" class="radio"><input id="rbtl46_0" type="radio" name="rbtl46" value="A" /><label for="rbtl46_0"> A、1000<br></label><br /><input id="rbtl46_1" type="radio" name="rbtl46" value="B" /><label for="rbtl46_1"> B、2000<br></label><br /><input id="rbtl46_2" type="radio" name="rbtl46" value="C" /><label for="rbtl46_2"> C、3000<br></label><br /><input id="rbtl46_3" type="radio" name="rbtl46" value="D" /><label for="rbtl46_3"> D、4000<br></label></span><span id="46"><font color="SpringGreen" size="4"></font></span><span id="lbl46" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">48.个人征信安全管理的内容包括（）   ①授权查询
+②限定用途
+③信息安全
+④查询记录     ⑤违规处罚<br><Br></font></span><span id="rbtl47" class="radio"><input id="rbtl47_0" type="radio" name="rbtl47" value="A" /><label for="rbtl47_0"> A、①③④⑤<br></label><br /><input id="rbtl47_1" type="radio" name="rbtl47" value="B" /><label for="rbtl47_1"> B、①②④⑤<br></label><br /><input id="rbtl47_2" type="radio" name="rbtl47" value="C" /><label for="rbtl47_2"> C、①②③④⑤<br></label><br /><input id="rbtl47_3" type="radio" name="rbtl47" value="D" /><label for="rbtl47_3"> D、①②③④<br></label></span><span id="47"><font color="SpringGreen" size="4"></font></span><span id="lbl47" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb1"><font size="3">49.关于国家助学金的评审下列哪个选项是正确的是（）。<br><Br></font></span><span id="rbtl48" class="radio"><input id="rbtl48_0" type="radio" name="rbtl48" value="A" /><label for="rbtl48_0"> A、国家助学金申请与评审工作由政府组织实施<br></label><br /><input id="rbtl48_1" type="radio" name="rbtl48" value="B" /><label for="rbtl48_1"> B、高校在开展国家助学金评审工作中，要对农林水地矿油核等国家需要的特殊学科专业学生予以适当倾斜<br></label><br /><input id="rbtl48_2" type="radio" name="rbtl48" value="C" /><label for="rbtl48_2"> C、申请并获得国家助学金的学生，不可同时申请并获得国家奖学金或国家励志奖学金或自治区人民政府奖学金<br></label><br /><input id="rbtl48_3" type="radio" name="rbtl48" value="D" /><label for="rbtl48_3"> D、国家助学金按每年进行申请和评审<br></label></span><span id="48"><font color="SpringGreen" size="4"></font></span><span id="lbl48" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr><tr>
+		<td><span><div class="list"> <br></span><span class="lb12"><font size="3">50.下列关于生源地信用助学贷款的违约后果说法正确的是（ ）    ①对于连续拖欠还款行为严重的借款人，政府和银行将通过新闻媒体和网络等信息公布其姓名、公民身份证号码、毕业学校及其具体违约行为等信息
+②严重违约的贷款人将承担相关法律责任
+③对恶意拖欠贷款的违约贷款人采取限制措施，不予提供住房贷款、汽车贷款等金融服务
+④以上说法都正确<br><Br></font></span><span id="rbtl49" class="radio"><input id="rbtl49_0" type="radio" name="rbtl49" value="A" /><label for="rbtl49_0"> A、①③<br></label><br /><input id="rbtl49_1" type="radio" name="rbtl49" value="B" /><label for="rbtl49_1"> B、②④<br></label><br /><input id="rbtl49_2" type="radio" name="rbtl49" value="C" /><label for="rbtl49_2"> C、②③<br></label><br /><input id="rbtl49_3" type="radio" name="rbtl49" value="D" /><label for="rbtl49_3"> D、①④<br></label></span><span id="49"><font color="SpringGreen" size="4"></font></span><span id="lbl49" class="lb3"><font color="Red" size="2"></font></span><span><br></div> </span></td>
+	</tr>
+</table>
+
+
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <center>
+                <input type="image" name="ImageButton1" id="ImageButton1" src="Images/Button.png" border="0" />
+                <input type="submit" name="time_out" value="Button" id="time_out" class="hide" />
+            </center>
+
+
+        </div>
+        </div>
+      <div id="pop" style="display: none;">
+
+          <div id="popHead">
+              <a id="popClose" title="关闭">关闭</a>
+              <h2>温馨提示</h2>
+          </div>
+          <div id="popContent">
+              <dl>
+                  <dt id="popTitle">部分浏览器可能存在兼容性问题</dt>
+                  <dd id="popIntro">若无法正常显示考试题目或考试剩余时间，请切换高级IE或谷歌浏览器..</dd>
+              </dl>
+              <p id="popMore">查看 »</p>
+          </div>
+      </div>
+        <!--右下角pop弹窗 end-->
+    </form>
+</body>
+</html>
